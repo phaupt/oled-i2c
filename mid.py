@@ -83,13 +83,6 @@ x = 0
 font = ImageFont.truetype('/home/mid/oled-i2c/04B_08__.TTF',8)
 
 
-# get values that won't change during uptime
-cmd = "hostname -I | cut -d\' \' -f1 | tr -d '\n'"
-IP = subprocess.check_output(cmd, shell = True )
-    
-cmd = "hostname | cut -c 9-11 | tr -d '\n'"
-Hostname = subprocess.check_output(cmd, shell = True )
-
 while True:
 
     # Draw a black filled box to clear the image.
@@ -107,6 +100,12 @@ while True:
     LastStkHeartbeat = subprocess.check_output(cmd, shell = True )
     
     # now do the rest..
+    cmd = "hostname -I | cut -d\' \' -f1 | tr -d '\n'"
+    IP = subprocess.check_output(cmd, shell = True )
+    
+    cmd = "hostname | cut -c 9-11 | tr -d '\n'"
+    Hostname = subprocess.check_output(cmd, shell = True )
+
     cmd = "cut -d ',' -f2 /home/mid/atclient/watchdog.atclient | sed 's/\+//g' | tr -d '\n'"
     MSISDN = subprocess.check_output(cmd, shell = True )
     
