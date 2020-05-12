@@ -86,10 +86,9 @@ BigFont = ImageFont.truetype('/home/mid/oled-i2c/04B_08__.TTF',16)
 startTime = time.time()
 timeout = int(sys.argv[1]) # take the command line argument (timeout in seconds)
 
-
 # Say hello (black font, white background)
 draw.rectangle((0,0,width,height), outline=255, fill=255)
-draw.text((x+8, top+8), "Hi there :-)",  font=BigFont, fill=0)
+draw.text((x+8, top+8), "Hi There :-)",  font=BigFont, fill=0)
 disp.image(image)
 disp.display()
 time.sleep(3)
