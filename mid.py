@@ -80,10 +80,29 @@ x = 0
 
 # Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
-font = ImageFont.truetype('/home/mid/oled-i2c/04B_08__.TTF',8)
+DefaultFont = ImageFont.truetype('/home/mid/oled-i2c/04B_08__.TTF',8)
+BigFont = ImageFont.truetype('/home/mid/oled-i2c/04B_08__.TTF',16)
 
+startTime = time.time()
+timeout = int(sys.argv[1]) # take the command line argument (timeout in seconds)
+
+
+# Say hello (black font, white background)
+draw.rectangle((0,0,width,height), outline=255, fill=255)
+draw.text((x+8, top+8), "Hi there :-)",  font=BigFont, fill=0)
+disp.image(image)
+disp.display()
+time.sleep(3)
+
+# Clear display
+draw.rectangle((0,0,width,height), outline=0, fill=0)
+disp.clear()
+disp.display()
 
 while True:
+
+    cmd = "date +'%d.%m.%y %H:%M' | tr -d '\n'"
+    Uptim = subprocess.check_output(cmd, shell = True )
 
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
@@ -93,11 +112,14 @@ while True:
     #                   1,           2,       3, 4,  5
     
     # time critical commands first!
-    cmd = "date +'%F %H:%M' | tr -d '\n'"
+    cmd = "date +'%d.%m.%y %H:%M' | tr -d '\n'"
     Date = subprocess.check_output(cmd, shell = True )
     
     cmd = "/home/mid/oled-i2c/get-age.sh | tr -d '\n'"
     LastStkHeartbeat = subprocess.check_output(cmd, shell = True )
+    
+    cmd = "awk '{printf(\"%02d:%02d\",($1/60/60%24),($1/60%60))}' /proc/uptime | tr -d '\n'"
+    Uptime = subprocess.check_output(cmd, shell = True )
     
     # now do the rest..
     cmd = "hostname -I | cut -d\' \' -f1 | tr -d '\n'"
@@ -122,12 +144,34 @@ while True:
     Operator = subprocess.check_output(cmd, shell = True )
 
     # Write two lines of text.
-    draw.text((x, top),    str(RAT) + " " + str(SignalStrengthPercentage) + " " + str(SignalStrengthIcon) + " (age: " + str(LastStkHeartbeat) + ")",  font=font, fill=255)
-    draw.text((x, top+8),  str(MSISDN) + " " + str(Operator), font=font, fill=255)
-    draw.text((x, top+16), "ID=" + str(Hostname) + "  IP=" + str(IP),  font=font, fill=255)
-    draw.text((x, top+25), str(Date),  font=font, fill=255)
+    draw.text((x, top),    str(RAT) + " " + str(SignalStrengthPercentage) + " " + str(SignalStrengthIcon) + " (age: " + str(LastStkHeartbeat) + ")",  font=DefaultFont, fill=255)
+    draw.text((x, top+8),  str(MSISDN) + " " + str(Operator), font=DefaultFont, fill=255)
+    draw.text((x, top+16), "ID=" + str(Hostname) + "  IP=" + str(IP),  font=DefaultFont, fill=255)
+    draw.text((x, top+25), str(Date) + " up " + str(Uptime),  font=DefaultFont, fill=255)
 
     # Display image.
     disp.image(image)
     disp.display()
-    time.sleep(.2)
+    time.sleep(.1)
+    
+    if (time.time() - startTime) > timeout:
+        break
+    
+# Clear display
+draw.rectangle((0,0,width,height), outline=255, fill=255)
+disp.clear()
+disp.display()
+
+# Say goodbye (black font, white background)
+draw.text((x+8, top+8), "BYE BYE",  font=BigFont, fill=0)
+disp.image(image)
+disp.display()
+time.sleep(3)
+
+# Clear display
+draw.rectangle((0,0,width,height), outline=0, fill=0)
+disp.clear()
+disp.display()
+
+# Terminate
+sys.exit()
