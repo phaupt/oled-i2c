@@ -81,7 +81,7 @@ x = 0
 # Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 DefaultFont = ImageFont.truetype('/home/mid/oled-i2c/04B_08__.TTF',8)
-BigFont = ImageFont.truetype('/home/mid/oled-i2c/04B_08__.TTF',16)
+BigFont = ImageFont.truetype('/home/mid/oled-i2c/04B_08__.TTF',14)
 
 startTime = time.time()
 timeout = int(sys.argv[1]) # take the command line argument (timeout in seconds)
