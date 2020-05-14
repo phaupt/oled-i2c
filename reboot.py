@@ -53,7 +53,7 @@ disp.clear()
 disp.display()
 
 # Say goodbye (black font, white background)
-draw.text((x+8, top+8), "POWEROFF...",  font=BigFont, fill=0)
+draw.text((x+28, top+8), "REBOOT",  font=BigFont, fill=0)
 disp.image(image)
 disp.display()
 time.sleep(4)
