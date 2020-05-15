@@ -1,2 +1,2 @@
 #!/bin/bash
-if ! (ps -ef | grep -q "[m]id.py") ; then (python /home/mid/oled-i2c/mid.py 600 &) ; else echo "OLED is already on..." ; fi
+if ! (ps -ef | grep -q "[m]id.py") ; then (python /home/mid/oled-i2c/mid.py 600 &) ; else ps -ef | grep "[m]id.py" | awk '{print "kill -9", $2}' | sh ; python /home/mid/oled-i2c/clear.py ; fi
