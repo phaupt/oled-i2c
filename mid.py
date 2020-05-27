@@ -67,7 +67,7 @@ while True:
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-    # /home/mid/atclient/watchdog.atclient columns:
+    # /var/log/watchdog.atclient columns:
     # 2020-05-12 09:38:55,+41796691039,Swisscom,4G,61%
     #                   1,           2,       3, 4,  5
     
@@ -88,19 +88,19 @@ while True:
     cmd = "hostname | cut -c 9-11 | tr -d '\n'"
     Hostname = subprocess.check_output(cmd, shell = True )
 
-    cmd = "cut -d ',' -f2 /home/mid/atclient/watchdog.atclient | sed 's/\+//g' | tr -d '\n'"
+    cmd = "cut -d ',' -f2 /var/log/watchdog.atclient | sed 's/\+//g' | tr -d '\n'"
     MSISDN = subprocess.check_output(cmd, shell = True )
     
-    cmd = "cut -d ',' -f4 /home/mid/atclient/watchdog.atclient | tr -d '\n'"
+    cmd = "cut -d ',' -f4 /var/log/watchdog.atclient | tr -d '\n'"
     RAT = subprocess.check_output(cmd, shell = True )
     
-    cmd = "cut -d ',' -f5 /home/mid/atclient/watchdog.atclient | tr -d '\n'"
+    cmd = "cut -d ',' -f5 /var/log/watchdog.atclient | tr -d '\n'"
     SignalStrengthPercentage = subprocess.check_output(cmd, shell = True )
     
-    cmd = "cut -d ',' -f6 /home/mid/atclient/watchdog.atclient | tr -d '\n'"
+    cmd = "cut -d ',' -f6 /var/log/watchdog.atclient | tr -d '\n'"
     SignalStrengthIcon = subprocess.check_output(cmd, shell = True )
     
-    cmd = "cut -d ',' -f3 /home/mid/atclient/watchdog.atclient | tr -d '\n'"
+    cmd = "cut -d ',' -f3 /var/log/watchdog.atclient | tr -d '\n'"
     Operator = subprocess.check_output(cmd, shell = True )
 
     # Write two lines of text.
