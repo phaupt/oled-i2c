@@ -1,6 +1,14 @@
 #! /bin/bash
 
-date1=$(cut -d ',' -f1 /home/mid/atclient/watchdog.atclient)
+if [ -e /var/log/watchdog.atclient ]
+then
+    date1=$(cut -d ',' -f1 /var/log/watchdog.atclient)
+else
+    echo "n/a"
+    exit 1
+fi
+
+date1=$(cut -d ',' -f1 /var/log/watchdog.atclient)
 seconds1=$(date --date "$date1" +%s)
 
 #echo "Last STK heartbeat: ${seconds1} seconds"
