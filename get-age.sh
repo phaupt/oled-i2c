@@ -9,6 +9,13 @@ else
 fi
 
 date1=$(cut -d ',' -f1 /var/log/watchdog.atclient)
+
+if [ -z "$date1" ]
+then
+    echo "n/a"
+    exit 1
+fi
+
 seconds1=$(date --date "$date1" +%s)
 
 #echo "Last STK heartbeat: ${seconds1} seconds"

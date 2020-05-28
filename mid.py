@@ -104,8 +104,11 @@ while True:
     Operator = subprocess.check_output(cmd, shell = True )
 
     # Write two lines of text.
-    draw.text((x, top),    str(RAT) + " " + str(SignalStrengthPercentage) + " " + str(SignalStrengthIcon) + " AGE " + str(LastStkHeartbeat),  font=DefaultFont, fill=255)
-    draw.text((x, top+8),  str(MSISDN) + " " + str(Operator), font=DefaultFont, fill=255)
+    if "n/a" in LastStkHeartbeat:
+        draw.text((x, top), "Waiting ATCLIENT... ",  font=DefaultFont, fill=255)
+    else:
+        draw.text((x, top), str(RAT) + " " + str(SignalStrengthPercentage) + " " + str(SignalStrengthIcon) + " AGE " + str(LastStkHeartbeat),  font=DefaultFont, fill=255)
+    draw.text((x, top+8), str(MSISDN) + " " + str(Operator), font=DefaultFont, fill=255)
     draw.text((x, top+16), "ID=" + str(Hostname) + "  IP=" + str(IP),  font=DefaultFont, fill=255)
     draw.text((x, top+25), str(Date) + " UP " + str(Uptime),  font=DefaultFont, fill=255)
 
