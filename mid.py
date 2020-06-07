@@ -79,7 +79,7 @@ while True:
     LastStkHeartbeat = subprocess.check_output(cmd, shell = True )
     
     #cmd = "awk '{printf(\"%02d:%02d\",($1/60/60%24),($1/60%60))}' /proc/uptime | tr -d '\n'"
-    cmd = "awk '{printf(\"%d\",($1/60/60/24))}' /proc/uptime | tr -d '\n'"
+    cmd = "awk '{printf(\"%03d %02d\",($1/60/60/24),($1/60/60%24))}' /proc/uptime | tr -d '\n'"
     Uptime = subprocess.check_output(cmd, shell = True )
     
     # now do the rest..
