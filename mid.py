@@ -104,7 +104,7 @@ while True:
     cmd = "cut -d ',' -f3 /var/log/watchdog.atclient | tr -d '\n'"
     Operator = subprocess.check_output(cmd, shell = True )
     
-    cmd = "x=80; y=$(if pgrep -x 'sleep' > /dev/null; then ps -p $(pgrep sleep) -o etimes=; else echo ''; fi | xargs echo); res=$((x - y)); echo "$res"| tr -d '\n'"
+    cmd = "x=80; y=$(if pgrep -x 'sleep' > /dev/null; then ps -p $(pgrep sleep) -o etimes=; else echo ''; fi | xargs echo); res=$((x - y)); echo '$res'| tr -d '\n'"
     SleepAge = subprocess.check_output(cmd, shell = True )
 
     # Write two lines of text.
