@@ -104,12 +104,12 @@ while True:
     cmd = "cut -d ',' -f3 /var/log/watchdog.atclient | tr -d '\n'"
     Operator = subprocess.check_output(cmd, shell = True )
     
-    cmd = "x=80; y=$(if pgrep -x 'sleep' > /dev/null; then ps -p $(pgrep sleep) -o etimes=; else echo ''; fi | xargs echo); res=$((x - y)); echo '$res'| tr -d '\n'"
+    cmd = "x=80; y=$(if pgrep -x 'sleep' > /dev/null; then ps -p $(pgrep sleep) -o etimes=; else echo $x; fi | xargs echo); res=$((x - y)); echo $res| tr -d '\n'"
     SleepAge = subprocess.check_output(cmd, shell = True )
 
     # Write two lines of text.
     if "n/a" in LastStkHeartbeat:
-        draw.text((x, top), "Waiting ATClient... " + str(SleepAge), font=DefaultFont, fill=255)
+        draw.text((x, top), "AT starts in " + str(SleepAge) + " sec", font=DefaultFont, fill=255)
     else:
         draw.text((x, top), str(RAT) + " " + str(SignalStrengthPercentage) + " " + str(SignalStrengthIcon) + " AGE " + str(LastStkHeartbeat),  font=DefaultFont, fill=255)
     draw.text((x, top+8), str(MSISDN) + " " + str(Operator), font=DefaultFont, fill=255)
